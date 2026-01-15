@@ -14,11 +14,11 @@ export default function Home() {
         />
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            Hal&#39;s attempt to deploy website locally
+            Hal&#39;s attempt to deploy website on VPS
           </h1>
           <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            If you read this on the internet, it means I have successfully deployed my website
-            locally using Next.js and Tailwind CSS!
+            If you read this on the internet, it means I have successfully deployed my Next.js project
+            on VPS using Nginx!
           </p>
         </div>
         <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
