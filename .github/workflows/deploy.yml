@@ -1,23 +1,29 @@
-name: Deploy to WSL
+name: Deploy to VPS
 
 on:
   push:
     branches:
-      - local-deploy
+      - production
 
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
-      - name: Install dependencies
-        run: pnpm install
-      
-      - name: Build application
-        run: pnpm build
-      
-      - name: Restart application
-        run: pm2 restart nextjs-app
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd ~/apps/deploy-fe-next
+            git fetch origin
+            git reset --hard origin/production
+            pnpm install --frozen-lockfile
+            pnpm build
+            pm2 restart nextjs-app
+            pm2 save
